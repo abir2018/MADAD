@@ -4,6 +4,7 @@
     this page enables the Task Manager to create a new annotation task.(connnection with database) 
     Email: deemaazizn@outlook.com --%>
 
+<%@page import="javax.naming.Context"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="java.util.Date" %>
@@ -17,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <%
+   <%
    String userID = (String)session.getAttribute("userid");
    session.setAttribute("userid",userID);
 //   userID = "1";
@@ -38,8 +39,10 @@
      
     try{
 //insert the input that the user has provided in the createTask page.        
-    DataSource ds = (DataSource) new InitialContext().lookup("jdbc/madad");
-    Connection con = ds.getConnection(); 
+    Context initContext = new InitialContext();
+    Context envContext = (Context) initContext.lookup("java:comp/env");
+    DataSource ds = (DataSource) envContext.lookup("jdbc/madad");
+    Connection con = ds.getConnection();
     Statement myStatement = con.createStatement();
     String str = "INSERT INTO task (`Task_Name`,`Description`,`Max_Num_Of_Annotators`,`Guidelines`,`U_ID`) VALUES (N'"+task_name+"',N'"+task_des+"',"+anno_numint+",N'"+guides+"',"+userID+")";
     myStatement.executeUpdate(str);
@@ -50,7 +53,7 @@
     if(read_type.equals("compare"))
     {
              out.print("two");
-   str = "INSERT INTO annotation_style (`Level_Of_Annoation`,`D_ID`,`T_ID`) VALUES (N'"+anno_level+"',"+corpus_text+","+res+")";
+   str = "INSERT INTO annotation_style (`Level_Of_Annoation`,`D_ID`,`ta_ID`) VALUES (N'"+anno_level+"',"+corpus_text+","+res+")";
    myStatement.executeUpdate(str);
     String nofield = request.getParameter("nofield");
     int nofieldn = Integer.parseInt(nofield);
@@ -72,7 +75,7 @@
                  out.print("third");
             String from = request.getParameter("range_from");
             String to = request.getParameter("range_to");
-            str = "INSERT INTO annotation_style (`Level_Of_Annoation`,`D_ID`,`T_ID`,`directAssigningFrom`,`directAssigningTo`) VALUES (N'"+anno_level+"',"+corpus_text+","+res+","+from+","+to+")";
+            str = "INSERT INTO annotation_style (`Level_Of_Annoation`,`D_ID`,`ta_ID`,`directAssigningFrom`,`directAssigningTo`) VALUES (N'"+anno_level+"',"+corpus_text+","+res+","+from+","+to+")";
    myStatement.executeUpdate(str);
         }     out.print("jhhjhj");
 
