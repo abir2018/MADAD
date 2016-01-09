@@ -99,7 +99,7 @@ else
           SELECT directAssigningFrom,directAssigningTo,Task_Name, dataset.name as dname, dataset.D_ID
           FROM task,dataset,annotation_style 
           WHERE task.ta_ID='<%=taskID%>' 
-          AND annotation_style.T_ID='<%=taskID%>' 
+          AND annotation_style.ta_ID='<%=taskID%>' 
           AND annotation_style.D_ID = dataset.D_ID;
       </sql:query>  
           
@@ -177,13 +177,13 @@ else
   <br>  <br>  <br>
   <label> الكلمات الصعبة</label>
   <br>
-        <textarea rows="4" cols="40" name="difficultWords" id="difficultWords">
+        <textarea rows="4" cols="40" style="color:black;min-height:100px;" name="difficultWords" id="difficultWords">
         </textarea>
   <br>
   <span>الكلمات مفصولة بفواصل</span>
   <br><br>
 <label>لقد اخترت</label>
-  <input id="rangeValue3" type="text" size="5" style="display: inline" readonly/>
+  <input id="rangeValue3" type="text" size="5" style="color:black; min-height:100px;" readonly/>
   <script>
 // this script to handle the displayed value for the user & calculate the average. 
     function printValue(sliderID, textbox) {

@@ -14,8 +14,8 @@
     </head>
     <body>
 <%
-   String userID = (String)session.getAttribute("userid");
-   session.setAttribute("userid",userID);
+   String userID = session.getAttribute("annotatorID").toString();
+   //session.setAttribute("userid",userID);
    request.setCharacterEncoding("UTF8");
    String D_ID = request.getParameter("D_ID");
    String T_ID = request.getParameter("TT_ID");

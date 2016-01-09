@@ -60,7 +60,7 @@
                 }
                 else
                 {
-                    String redirectURL = "directAssigning.jsp?taskID="+taskID;
+                    String redirectURL = "compareReadability.jsp?taskID="+taskID;
                     response.sendRedirect(redirectURL);
                 }
             }

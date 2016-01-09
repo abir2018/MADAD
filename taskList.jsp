@@ -142,7 +142,7 @@
                               SELECT * FROM task;
                           </sql:query>  
 
-                     <c:choose>    
+                     <c:choose> 
                               <c:when test="${rs.rowCount == 0}">   <!--  this print mean "nothing" -->
                                   <%
 
