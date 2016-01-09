@@ -20,6 +20,7 @@
     <body>
         <%
            String schema=null;
+           int directFrom=-1,directTo=-1;
             int taskID=Integer.parseInt(request.getParameter("taskID").toString());
             try {
                 Context initContext = new InitialContext();
@@ -34,6 +35,8 @@
                 while(rs.next())
                 {
                     schema=rs.getString("Annotation_Scheme");
+                    directFrom=rs.getInt("directAssigningFrom");
+                    directTo=rs.getInt("directAssigningTo");
                 }
               
         }
@@ -50,8 +53,16 @@
             }
             else
            {
-                String redirectURL = "directAssigning.jsp?taskID="+taskID;
-                response.sendRedirect(redirectURL);
+                if(directFrom>-1 && directTo>-1)
+                {
+                    String redirectURL = "directAssigning.jsp?taskID="+taskID;
+                    response.sendRedirect(redirectURL);
+                }
+                else
+                {
+                    String redirectURL = "directAssigning.jsp?taskID="+taskID;
+                    response.sendRedirect(redirectURL);
+                }
             }
                 
          %>

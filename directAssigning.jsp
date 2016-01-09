@@ -81,7 +81,7 @@
    String userID = (String)session.getAttribute("userid");
    session.setAttribute("userid",userID);
     request.setCharacterEncoding("UTF8");
-    String T_ID = request.getParameter("ID");
+    String taskID = request.getParameter("taskID");
      String state = request.getParameter("state");
 if(state != null && state.equals("done"))
 {%>
@@ -98,8 +98,8 @@ else
       <sql:query var="rs" dataSource="jdbc/madad">
           SELECT directAssigningFrom,directAssigningTo,Task_Name, dataset.name as dname, dataset.D_ID
           FROM task,dataset,annotation_style 
-          WHERE task.T_ID='<%=T_ID%>' 
-          AND annotation_style.T_ID='<%=T_ID%>' 
+          WHERE task.ta_ID='<%=taskID%>' 
+          AND annotation_style.T_ID='<%=taskID%>' 
           AND annotation_style.D_ID = dataset.D_ID;
       </sql:query>  
           
@@ -122,7 +122,7 @@ else
                 </c:choose>
 
       <form method="post" action="directAssigningDB.jsp" name="form_list">
-           <input type="hidden" name="TT_ID" value="<%=T_ID%>">
+           <input type="hidden" name="TT_ID" value="<%=taskID%>">
            <input type="hidden" name="D_ID" value="${D_ID}">
           
        <h1>

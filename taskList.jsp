@@ -134,9 +134,9 @@
                   
           <table border="1" width="100%">
               <tr>
-                  <th align="center"><h3>مهمة</h3></th>
-                  <th align="center"><h3>الحالة</h3></th>
-                  <th align="center"><h3>تاريخ التأسيس</h3></th>
+                  <th align="center">مهمة</th>
+                  <th align="center">الحالة</th>
+                  <th align="center">تاريخ التأسيس</th>
               </tr>
                         <sql:query var="rs" dataSource="jdbc/madad">
                               SELECT * FROM task;

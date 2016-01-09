@@ -117,7 +117,7 @@
     <a href="#"  >إنشاء مهمة جديدة</a><br>
     <a href="manageTask.jsp"  >المهام المدارة</a><br>
     <a href="assignAnnotationTask.jsp"  >تعيين مرمزين لمهمة تحشية</a><br>
-    <a href="taskList.jsp">معاينة التقدم لمهمة</a><br>
+    <a href="taskList.jsp">إدارة العمل</a><br>
     <a href="generateReport.jsp">التقرير الشهري</a><br>
     <a href="listOfDatasets.jsp">تصدير المشروح كوربوس</a><br>
 </fieldset>
