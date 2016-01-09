@@ -222,6 +222,5 @@
    </c:choose>
         </form>
        </div>
-   
   </body>
 </html>
