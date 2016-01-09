@@ -44,7 +44,7 @@
         {
             ex.printStackTrace();
         }
-            
+          System.out.println("directAssign"+directFrom+ " "+directTo);  
             if(schema.equals("schema"))
             {
                 String redirectURL = "annotateText.jsp?taskID="+taskID;
@@ -53,7 +53,7 @@
             }
             else
            {
-                if(directFrom>-1 && directTo>-1)
+                if(directFrom>0 && directTo>0)
                 {
                     String redirectURL = "directAssigning.jsp?taskID="+taskID;
                     response.sendRedirect(redirectURL);

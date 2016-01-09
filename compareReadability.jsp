@@ -7,10 +7,7 @@
 --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
-   String userID = (String)session.getAttribute("userid");
-   session.setAttribute("userid",userID);
-   userID = "12";
-   
+   String userID = session.getAttribute("annotatorID").toString(); 
    %>
 <!DOCTYPE html>
 
@@ -53,26 +50,7 @@
  
     </head>
     <body>
-        <div id="wrapper">
-          <div id="header">
-      <img src="madad.png" alt="logo" width="122" height="100" style="float:right; right:0px; top:0px;">
-
-  		<ul class="nav">
-  			<li>
-  				<a href="logout.jsp">تسجيل الخروج</a>
-  			</li>
-                        <li>
-  				<a href="index.jsp">الرئيسية</a>
-  			</li>
-  		</ul>
-   <header style="margin-top: 10px;">
-          <label style="font-size:30pt; font-weight: bold;">Arabic annotation tool</label><br><br>
-            <label style="font-size:20pt; ">(تحشية المدونات العربية)</label>
-    </header>
-  </div>
-            
-            
-            
+                
              <div id="wrapper">
    <div id="header">
       <img src="madad.png" alt="logo" width="122" height="100" style="float:right; right:0px; top:0px;">
@@ -95,13 +73,13 @@
            String D_ID="";
            String state = "";
            String D_Name  = "";
-           String T_ID = request.getParameter("ID");
-          T_ID ="55";
+           String T_ID = request.getParameter("taskID");
+           System.out.println("Its working");
     %>
     <sql:query var="rs1" dataSource="jdbc/madad">
         SELECT * 
         FROM task,dataset,annotation_style,comparison_mode 
-        WHERE task.T_ID='<%=T_ID%>' AND annotation_style.T_ID='<%=T_ID%>'  AND annotation_style.D_ID = dataset.D_ID AND comparison_mode.A_ID=annotation_style.A_ID;  
+        WHERE task.ta_ID='<%=T_ID%>' AND annotation_style.ta_ID='<%=T_ID%>'  AND annotation_style.D_ID = dataset.D_ID AND comparison_mode.A_ID=annotation_style.A_ID;  
     </sql:query>
         <c:choose>
                     <c:when test="${rs1.rowCount == 0}">
@@ -109,7 +87,7 @@
                           out.print("لا توجد مهمة لعرضها");   
                         %>
                     </c:when>
-            <c:when test="rs1.rowCount > 0">
+            <c:when test="${rs1.rowCount > 0}">
                 <c:forEach var="row" items="${rs1.rows}">
                      <c:set var="D_Name" value="${row.dataset.name}"/>
                    <c:set var="D_ID" value="${row.dataset.D_ID}"/>
@@ -121,7 +99,7 @@
      <c:set var="numr" value="${rsr.rows}"/> 
      <c:choose>
          
-     <c:when test="${numr <= 1}">
+     <c:when test="${rsr.rowCount <= 1}">
          <%
            state =    "empty"; 
          %>
@@ -130,11 +108,11 @@
          <sql:query var="rs2" dataSource="jdbc/madad">
              select * from dataset where D_ID NOT IN 
              ( SELECT DS_ID from compare_to 
-             where DP_ID = ‘<%=D_ID%>’ 
-             AND T_ID = ‘<%=T_ID%>’  
-             AND U_ID =’<%=userID%>’)
-             AND D_ID <> ‘<%=D_ID%>’ 
-             order by D_ID asc;    
+             where DP_ID = '${D_ID}' 
+             AND T_ID = <%=T_ID%>
+             AND U_ID =<%=userID%>)
+             AND D_ID <> '${D_ID}' 
+             order by D_ID asc;
          </sql:query>
              <c:choose>
                     <c:when test="${rs2.rowCount == 0}">
@@ -201,7 +179,7 @@
         <br>  <br> 
   <label>الكلمات الصعبة في النص الأول</label>
   <br>
-        <textarea rows="4" cols="40" name="difficultWordsDP" id="difficultWords">
+        <textarea rows="4" cols="40" style="color:black;min-height:100px;" name="difficultWordsDP" id="difficultWords">
         </textarea>
   <br>
   <span>الكلمات مفصولة بفواصل</span>
@@ -209,7 +187,7 @@
    <br>  <br> 
   <label>الكلمات الصعبة في النص الثاني</label>
   <br>
-        <textarea rows="4" cols="40" name="difficultWordsDS" id="difficultWords">
+        <textarea rows="4" cols="40" style="color:black;min-height:100px;" name="difficultWordsDS" id="difficultWords">
         </textarea>
   <br>
   <span>الكلمات مفصولة بفواصل</span>
@@ -240,12 +218,10 @@
     
      
 </fieldset>
-        </c:when>
-        </c:choose>
-             </form>     
-    <div id="footer" style="bottom: 0px;">
-<p><small>Copyright by KSU &copy2015. All rights reserved.</small></p>
-</div>
-            </div>
+     </c:when>
+   </c:choose>
+        </form>
+       </div>
+   
   </body>
 </html>

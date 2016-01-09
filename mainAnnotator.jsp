@@ -7,8 +7,7 @@
 <!DOCTYPE html>
 <%
    String userID = (String)session.getAttribute("userid");
-   session.setAttribute("userid",userID);
-     String type = (String)session.getAttribute("type");
+   String type = (String)session.getAttribute("type");
    session.setAttribute("type",type);
    %>
 <html> 
