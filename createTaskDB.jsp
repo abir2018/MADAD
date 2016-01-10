@@ -21,6 +21,7 @@
    <%
    String userID = (String)session.getAttribute("userid");
    session.setAttribute("userid",userID);
+   int managerID=Integer.parseInt(session.getAttribute("managerID").toString());
 //   userID = "1";
    %>
     <body>
@@ -44,7 +45,8 @@
     DataSource ds = (DataSource) envContext.lookup("jdbc/madad");
     Connection con = ds.getConnection();
     Statement myStatement = con.createStatement();
-    String str = "INSERT INTO task (`Task_Name`,`Description`,`Max_Num_Of_Annotators`,`Guidelines`,`U_ID`) VALUES (N'"+task_name+"',N'"+task_des+"',"+anno_numint+",N'"+guides+"',"+userID+")";
+    String str = "INSERT INTO task (`Task_Name`,`Description`,`Max_Num_Of_Annotators`,`Guidelines`,`U_ID`,`status`) VALUES (N'"+task_name+"',N'"+task_des+"',"+anno_numint+",N'"+guides+"',"+managerID+",'running')";
+    System.out.println(str);
     myStatement.executeUpdate(str);
     String ssql  = "select LAST_INSERT_ID() from task";
     ResultSet  rss = myStatement.executeQuery(ssql);

@@ -82,8 +82,29 @@ response.sendRedirect("mainAnnotator.jsp");
     <c:choose>
        
     <c:when test="${result2.rowCount != 0}">
-<% session.setAttribute("userid", userid);
-type = "manager";
+<%      session.setAttribute("userid", userid);
+        type = "manager";
+        try {
+                Context initContext = new InitialContext();
+                Context envContext = (Context) initContext.lookup("java:comp/env");
+                DataSource ds = (DataSource) envContext.lookup("jdbc/madad");
+                //DataSource ds = (DataSource)ctx.lookup("java:/comp/env/jdbc/madad");
+                Connection con = ds.getConnection();
+                String query="select * FROM manager where Name='"+userid+"' and Password='"+pwd+"'";
+                Statement myStatement = con.createStatement();
+                ResultSet rs=myStatement.executeQuery(query);
+                
+                if(rs.next())
+                {
+                   session.setAttribute("managerID",rs.getInt("U_ID"));
+                }
+               
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
        session.setAttribute("type", type);
        out.println("welcome " + userid);
        out.println("<a href='logout.jsp'>Log out</a>");

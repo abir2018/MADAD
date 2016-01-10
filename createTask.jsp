@@ -244,7 +244,7 @@ qtyField.value = ( currentValue += step );
             try{
 // rerrieving the corpora from the database. 
          DataSource ds = (DataSource) new InitialContext().lookup("jdbc/madad");
-             Connection con = ds.getConnection(); 
+         Connection con = ds.getConnection(); 
                                 String sqlString = "SELECT D_ID,name FROM dataset";
                                 Statement myStatement = con.createStatement();
                                 ResultSet rs=myStatement.executeQuery(sqlString);
